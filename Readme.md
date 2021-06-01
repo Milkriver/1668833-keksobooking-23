@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Марина Чуркина](https://up.htmlacademy.ru/javascript/23/user/1668833).
-* Наставник: `Неизвестно`.
+* Наставник: [Rail Sakhaviev](https://htmlacademy.ru/profile/id1331891).
 
 ---
 
