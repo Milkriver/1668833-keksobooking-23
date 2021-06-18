@@ -56,17 +56,9 @@ const getRandomOffer = function (myLocation) {
   };
 };
 
-const getLeadZero = function (fixedAvatarNumber) {
-  if (fixedAvatarNumber < 10) {
-    return `0${fixedAvatarNumber}`;
-  } else {
-    return String(fixedAvatarNumber);
-  }
-};
-
 const getRandomAuthor = function (avatarNumber) {
   const fixedAvatarNumber = avatarNumber + 1;
-  const linkAvatarNumber = getLeadZero(fixedAvatarNumber);
+  const linkAvatarNumber = fixedAvatarNumber.toString().padStart(2,"0");
   return {
     avatar: `img/avatars/user${linkAvatarNumber}.png`,
   };
