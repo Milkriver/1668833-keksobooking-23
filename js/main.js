@@ -76,17 +76,14 @@ const getRandomCards = function () {
   const cards = [];
   const numberElements = 10;
   for (let cardStep = 0; cardStep < numberElements; cardStep++) {
-    const card = {};
-    const location = {
-      lat: getRandomDecimal(35.65000, 35.70000, 5),
-      lng: getRandomDecimal(139.70000, 139.80000, 5),
+    cards[cardStep] = {
+      author: getRandomAuthor(cardStep),
+      offer: getRandomOffer(location),
+      location: {
+        lat: getRandomDecimal(35.65000, 35.70000, 5),
+        lng: getRandomDecimal(139.70000, 139.80000, 5),
+      },
     };
-    const offer = getRandomOffer(location);
-    const author = getRandomAuthor(cardStep);
-    card.author = author;
-    card.offer = offer;
-    card.location = location;
-    cards[cardStep] = card;
   }
   return cards;
 };
