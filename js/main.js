@@ -16,8 +16,7 @@ const getRandomDecimal = function (min, max, quantity) {
 
 const getRandomElement = function (collection) {
   const randomIndex = getRandomInteger(0, collection.length - 1);
-  const element = collection[randomIndex];
-  return element;
+  return collection[randomIndex];
 };
 
 const getRandomElements = function (collection) {
@@ -42,7 +41,7 @@ const photos = [
 const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 
 const getRandomOffer = function (myLocation) {
-  const offer = {
+  return {
     title: 'Заголовок',
     address: `${myLocation.lat}, ${myLocation.lng}`,
     price: getRandomInteger(1, 999999),
@@ -55,7 +54,6 @@ const getRandomOffer = function (myLocation) {
     description: 'Описание',
     photos: getRandomElements(photos),
   };
-  return offer;
 };
 
 const getLeadZero = function (fixedAvatarNumber) {
@@ -69,10 +67,9 @@ const getLeadZero = function (fixedAvatarNumber) {
 const getRandomAuthor = function (avatarNumber) {
   const fixedAvatarNumber = avatarNumber + 1;
   const linkAvatarNumber = getLeadZero(fixedAvatarNumber);
-  const author = {
+  return {
     avatar: `img/avatars/user${linkAvatarNumber}.png`,
   };
-  return author;
 };
 
 const getRandomCards = function () {
