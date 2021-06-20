@@ -25,7 +25,7 @@ const getRandomOffer = function (myLocation) {
 
 const getRandomAuthor = function (avatarNumber) {
   const fixedAvatarNumber = avatarNumber + 1;
-  const linkAvatarNumber = fixedAvatarNumber.toString().padStart(2,"0");
+  const linkAvatarNumber = fixedAvatarNumber.toString().padStart(2,'0');
   return {
     avatar: `img/avatars/user${linkAvatarNumber}.png`,
   };
