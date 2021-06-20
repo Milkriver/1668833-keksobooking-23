@@ -1,2 +1,3 @@
-import {getRandomCards} from './data.js';
+import { getRandomCards } from './data.js';
+
 getRandomCards();

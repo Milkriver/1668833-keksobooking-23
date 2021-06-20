@@ -31,4 +31,5 @@ const getRandomElements = function (collection) {
   }
   return elements;
 };
-export {getRandomInteger, getRandomDecimal, getRandomElement, getRandomElements};
+
+export { getRandomInteger, getRandomDecimal, getRandomElement, getRandomElements };

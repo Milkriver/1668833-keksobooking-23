@@ -1,3 +1,5 @@
+import { getRandomInteger, getRandomDecimal, getRandomElement, getRandomElements } from './utils/util.js';
+
 const times = ['12:00', '13:00', '14:00'];
 const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const photos = [
@@ -5,7 +7,6 @@ const photos = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-import {getRandomInteger, getRandomDecimal, getRandomElement, getRandomElements} from './utils/util.js';
 
 const getRandomOffer = function (myLocation) {
   return {
@@ -25,7 +26,7 @@ const getRandomOffer = function (myLocation) {
 
 const getRandomAuthor = function (avatarNumber) {
   const fixedAvatarNumber = avatarNumber + 1;
-  const linkAvatarNumber = fixedAvatarNumber.toString().padStart(2,'0');
+  const linkAvatarNumber = fixedAvatarNumber.toString().padStart(2, '0');
   return {
     avatar: `img/avatars/user${linkAvatarNumber}.png`,
   };
@@ -47,4 +48,4 @@ const getRandomCards = function () {
   return cards;
 };
 
-export {getRandomCards};
+export { getRandomCards };
