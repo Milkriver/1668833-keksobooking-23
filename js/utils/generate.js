@@ -15,7 +15,7 @@ const renderSingleOffer = function (offer) {
   article.appendChild(title);
   const address = makeElement('p', 'popup__text--address', offer.address);
   article.appendChild(address);
-  const price = makeElement('p', 'popup__text--price', `${offer.price  } ₽/ночь`);
+  const price = makeElement('p', 'popup__text--price', `${offer.price} ₽/ночь`);
   article.appendChild(price);
   let type = makeElement('h4', 'popup__type', offer.type);
   if (offer.type === 'flat') {
@@ -34,9 +34,9 @@ const renderSingleOffer = function (offer) {
     type = makeElement('h4', 'popup__type', 'Отель');
   }
   article.appendChild(type);
-  const textСapacity = makeElement('p', 'popup__text--capacity', `${offer.rooms  } комнат для ${  offer.guests  } гостей`);
+  const textСapacity = makeElement('p', 'popup__text--capacity', `${offer.rooms} комнат для ${offer.guests} гостей`);
   article.appendChild(textСapacity);
-  const textTime = makeElement('p', 'popup__text--time', `Заезд после ${  offer.checkin  }, выезд до ${  offer.checkout}`);
+  const textTime = makeElement('p', 'popup__text--time', `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`);
   article.appendChild(textTime);
 
   const features = makeElement('ul', 'popup__features');
@@ -68,15 +68,12 @@ const renderSingleOffer = function (offer) {
       features.appendChild(featuresConditioner);
     }
   }
-
-  const description = makeElement('p', 'popup__description', 'Великолепная квартира-студия в центре Токио. Подходит как туристам, так и бизнесменам. Квартира полностью укомплектована и недавно отремонтирована.');
+  const description = makeElement('p', 'popup__description', offer.description);
   article.appendChild(description);
-  const photos = makeElement('div', 'popup__photos');
+  const photos = makeElement('div', 'popup__photos', offer.photos);
+  for (let index = 0; index < offer.photos.length; index++) {
+    const photo = offer.photos[index];
+  }
   article.appendChild(photos);
-  const photosImg = makeElement('img', 'popup__photo');
-  photosImg.src = document.querySelector('.popup__photo').imgUrl;
-  photosImg.alt = document.querySelector('.popup__photo').text;
-  article.appendChild(photosImg);
 };
-
 export { renderSingleOffer };

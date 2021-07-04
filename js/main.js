@@ -2,7 +2,7 @@ import { getRandomCards } from './data.js';
 import { renderSingleOffer } from './utils/generate.js';
 getRandomCards();
 
-const offer =  {
+const offer = {
   title: 'Квартира студия в престижном районе',
   address: 'Chiyoda-ku, Tōkyō-to 102-0091',
   price: 88000,
@@ -25,6 +25,10 @@ const offer =  {
     'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
     'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
   ],
+};
+
+const author = {
+  avatar: "img/avatars/user04.png"
 };
 
 renderSingleOffer(offer);
