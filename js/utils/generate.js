@@ -7,7 +7,6 @@ let makeElement = function (tagName, className, text) {
   return element;
 }
 
-//1. создатьв памяти дом элемент обьявление
 let renderSingleOffer = function () {
   let mapOffer = document.querySelector('.map__canvas');
   let article = makeElement('article', 'popup');
