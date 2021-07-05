@@ -10,6 +10,7 @@ const makeElement = function (tagName, className, text) {
 const renderSingleCard = function (card) {
   const offer = card.offer;
   const author = card.author;
+
   const mapOffer = document.querySelector('.map__canvas');
   const avatar = makeElement('img', 'popup__avatar', author.avatar);
   mapOffer.appendChild(avatar);
@@ -21,24 +22,26 @@ const renderSingleCard = function (card) {
   article.appendChild(address);
   const price = makeElement('p', 'popup__text--price', `${offer.price} ₽/ночь`);
   article.appendChild(price);
-  let type = makeElement('h4', 'popup__type', offer.type);
+
+  let localizationType;
   switch (offer.type) {
     case 'flat':
-      type = makeElement('h4', 'popup__type', 'Квартира');
+      localizationType = 'Квартира';
       break;
     case 'bungalow':
-      type = makeElement('h4', 'popup__type', 'Бунгало');
+      localizationType = 'Бунгало';
       break;
     case 'house':
-      type = makeElement('h4', 'popup__type', 'Дом');
+      localizationType = 'Дом';
       break;
     case 'palace':
-      type = makeElement('h4', 'popup__type', 'Дворец');
+      localizationType = 'Дворец';
       break;
     case 'hotel':
-      type = makeElement('h4', 'popup__type', 'Отель');
+      localizationType = 'Отель';
       break;
   };
+  let type = makeElement('h4', 'popup__type', localizationType);
   article.appendChild(type);
 
   const textСapacity = makeElement('p', 'popup__text--capacity', `${offer.rooms} комнат для ${offer.guests} гостей`);
@@ -50,33 +53,30 @@ const renderSingleCard = function (card) {
   article.appendChild(features);
   for (let index = 0; index < offer.features.length; index++) {
     const feature = offer.features[index];
+    let featureElement;
     switch (feature) {
       case 'wifi':
-        const featuresWifi = makeElement('li', 'popup__feature--wifi', 'WiFi');
-        features.appendChild(featuresWifi);
+        featureElement = makeElement('li', 'popup__feature--wifi', 'WiFi');
         break
       case 'dishwasher':
-        const featuresDishwasher = makeElement('li', 'popup__feature--dishwasher', 'посудомоечная машина');
-        features.appendChild(featuresDishwasher);
+        featureElement = makeElement('li', 'popup__feature--dishwasher', 'посудомоечная машина');
         break
       case 'washer':
-        const featuresWasher = makeElement('li', 'popup__feature--washer', 'стиральная машина');
-        features.appendChild(featuresWasher);
+        featureElement = makeElement('li', 'popup__feature--washer', 'стиральная машина');
         break
       case 'elevator':
-        const featuresElevator = makeElement('li', 'popup__feature--elevator', 'лифт');
-        features.appendChild(featuresElevator);
+        featureElement = makeElement('li', 'popup__feature--elevator', 'лифт');
         break
       case 'parking':
-        const featuresParking = makeElement('li', 'popup__feature--parking', 'парковка');
-        features.appendChild(featuresParking);
+        featureElement = makeElement('li', 'popup__feature--parking', 'парковка');
         break
       case 'conditioner':
-        const featuresConditioner = makeElement('li', 'popup__feature--conditioner', 'кондиционер');
-        features.appendChild(featuresConditioner);
+        featureElement = makeElement('li', 'popup__feature--conditioner', 'кондиционер');
         break
     }
+    features.appendChild(featureElement);
   }
+
   const description = makeElement('p', 'popup__description', offer.description);
   article.appendChild(description);
   const photos = makeElement('div', 'popup__photos');
