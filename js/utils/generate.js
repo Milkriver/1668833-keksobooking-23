@@ -8,11 +8,13 @@ const makeElement = function (tagName, className, text) {
 };
 
 const renderSingleCard = function (card) {
-  let offer = card.offer;
+  const offer = card.offer;
+  const author = card.author;
   const mapOffer = document.querySelector('.map__canvas');
-  const article = makeElement('img', 'popup__avatar');
+  const avatar = makeElement('img', 'popup__avatar', author.avatar);
+  mapOffer.appendChild(avatar);
+  const article = makeElement('article', 'popup');
   mapOffer.appendChild(article);
-  const avatar = makeElement('article', 'popup');
   const title = makeElement('h3', 'popup__title', offer.title);
   article.appendChild(title);
   const address = makeElement('p', 'popup__text--address', offer.address);
@@ -77,10 +79,14 @@ const renderSingleCard = function (card) {
   }
   const description = makeElement('p', 'popup__description', offer.description);
   article.appendChild(description);
-  const photos = makeElement('div', 'popup__photos', offer.photos);
+  const photos = makeElement('div', 'popup__photos');
   for (let index = 0; index < offer.photos.length; index++) {
-    const photo = offer.photos[index];
+    let photo = offer.photos[index];
+    let photoOffer = makeElement('img', 'popup__photo');
+    photoOffer.src = photo;
+    photos.appendChild(photoOffer);
   }
   article.appendChild(photos);
 }
+
 export { renderSingleCard };
