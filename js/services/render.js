@@ -33,8 +33,8 @@ const renderSingleCard = function (card) {
     case 'hotel':
       localizationType = 'Отель';
       break;
-  };
-  let type = makeElement('h4', 'popup__type', localizationType);
+  }
+  const type = makeElement('h4', 'popup__type', localizationType);
   article.appendChild(type);
 
   const textСapacity = makeElement('p', 'popup__text--capacity', `${offer.rooms} комнат для ${offer.guests} гостей`);
@@ -50,22 +50,22 @@ const renderSingleCard = function (card) {
     switch (feature) {
       case 'wifi':
         featureElement = makeElement('li', 'popup__feature--wifi', 'WiFi');
-        break
+        break;
       case 'dishwasher':
         featureElement = makeElement('li', 'popup__feature--dishwasher', 'посудомоечная машина');
-        break
+        break;
       case 'washer':
         featureElement = makeElement('li', 'popup__feature--washer', 'стиральная машина');
-        break
+        break;
       case 'elevator':
         featureElement = makeElement('li', 'popup__feature--elevator', 'лифт');
-        break
+        break;
       case 'parking':
         featureElement = makeElement('li', 'popup__feature--parking', 'парковка');
-        break
+        break;
       case 'conditioner':
         featureElement = makeElement('li', 'popup__feature--conditioner', 'кондиционер');
-        break
+        break;
     }
     features.appendChild(featureElement);
   }
@@ -74,12 +74,12 @@ const renderSingleCard = function (card) {
   article.appendChild(description);
   const photos = makeElement('div', 'popup__photos');
   for (let index = 0; index < offer.photos.length; index++) {
-    let photo = offer.photos[index];
-    let photoOffer = makeElement('img', 'popup__photo');
+    const photo = offer.photos[index];
+    const photoOffer = makeElement('img', 'popup__photo');
     photoOffer.src = photo;
     photos.appendChild(photoOffer);
   }
   article.appendChild(photos);
-}
+};
 
 export { renderSingleCard };
