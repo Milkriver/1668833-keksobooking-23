@@ -8,10 +8,11 @@ const photos = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 
-const getRandomOffer = function (myLocation) {
+const getRandomOffer = function () {
   return {
     title: 'Заголовок',
-    address: `${myLocation.lat}, ${myLocation.lng}`,
+    // address: `${myLocation.lat}, ${myLocation.lng}`,
+    address: 'Адрес',
     price: getRandomInteger(1, 999999),
     type: getRandomElement(types),
     rooms: getRandomInteger(1, 100),

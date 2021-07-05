@@ -1,3 +1,5 @@
 import { getRandomCards } from './data.js';
-
-getRandomCards();
+import { renderSingleCard as renderSingleCard } from './services/render.js';
+const cards = getRandomCards();
+const card = cards[0];
+renderSingleCard(card);
