@@ -2,7 +2,7 @@ import { makeElement } from '../utils/generate.js';
 
 const renderSingleCard = function (card) {
   const {offer, author} = card;
-  
+
   const mapOffer = document.querySelector('.map__canvas');
   const avatar = makeElement('img', 'popup__avatar', author.avatar);
   mapOffer.appendChild(avatar);
