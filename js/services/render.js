@@ -1,64 +1,45 @@
-import { makeElement } from '../utils/generate.js';
+import { createElement } from '../utils/generate.js';
 
-const renderSingleCard = function (card) {
-  const {offer, author} = card;
+const mapOffer = document.querySelector('.map__canvas');
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-  const mapOffer = document.querySelector('.map__canvas');
-  const avatar = makeElement('img', 'popup__avatar', author.avatar);
-  mapOffer.appendChild(avatar);
-  const article = makeElement('article', 'popup');
-  mapOffer.appendChild(article);
-  const title = makeElement('h3', 'popup__title', offer.title);
-  article.appendChild(title);
-  const address = makeElement('p', 'popup__text--address', offer.address);
-  article.appendChild(address);
-  const price = makeElement('p', 'popup__text--price', `${offer.price} ₽/ночь`);
-  article.appendChild(price);
+const apartmentTypes = {
+  'flat': 'Квартира',
+  'bungalow': 'Бунгало',
+  'house': 'Дом',
+  'palace': 'Дворец',
+  'hotel': 'Отель',
+};
 
-  let localizationType;
-  switch (offer.type) {
-    case 'flat':
-      localizationType = 'Квартира';
-      break;
-    case 'bungalow':
-      localizationType = 'Бунгало';
-      break;
-    case 'house':
-      localizationType = 'Дом';
-      break;
-    case 'palace':
-      localizationType = 'Дворец';
-      break;
-    case 'hotel':
-      localizationType = 'Отель';
-      break;
-  }
-  const type = makeElement('h4', 'popup__type', localizationType);
-  article.appendChild(type);
+const renderCard = function ({ offer, author }) {
+  const template = cardTemplate.cloneNode(true);
 
-  const textСapacity = makeElement('p', 'popup__text--capacity', `${offer.rooms} комнат для ${offer.guests} гостей`);
-  article.appendChild(textСapacity);
-  const textTime = makeElement('p', 'popup__text--time', `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`);
-  article.appendChild(textTime);
+  template.querySelector('.popup__avatar').textContent = author.avatar;
+  template.querySelector('.popup__title').textContent = offer.title;
+  template.querySelector('.popup__text--address').textContent = offer.address;
+  template.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
+  template.querySelector('.popup__type').textContent = apartmentTypes[offer.type] ? apartmentTypes[offer.type] : 'Не определен';
+  template.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнат для ${offer.guests} гостей`;
+  template.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
+  template.querySelector('.popup__description').textContent = offer.description;
 
-  const features = makeElement('ul', 'popup__features');
-  article.appendChild(features);
+  const featuresElement = template.querySelector('.popup__features');
+  featuresElement.innerHTML = '';
   for (let index = 0; index < offer.features.length; index++) {
     const feature = createElement('li', 'popup__feature');
     feature.classList.add(`popup__feature--${offer.features[index]}`);
     featuresElement.appendChild(feature);
   }
 
-  const description = makeElement('p', 'popup__description', offer.description);
-  article.appendChild(description);
-  const photos = makeElement('div', 'popup__photos');
+  const photosElement = template.querySelector('.popup__photos');
+  photosElement.innerHTML = '';
   for (let index = 0; index < offer.photos.length; index++) {
-    const photo = offer.photos[index];
-    const photoOffer = makeElement('img', 'popup__photo');
-    photoOffer.src = photo;
-    photos.appendChild(photoOffer);
+    const photoOffer = createElement('img', 'popup__photo');
+    photoOffer.src = offer.photos[index];
+    photosElement.appendChild(photoOffer);
   }
-  article.appendChild(photos);
+  mapOffer.appendChild(template);
+
 };
 
-export { renderSingleCard };
+export { renderCard };

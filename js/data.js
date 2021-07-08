@@ -11,7 +11,6 @@ const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const getRandomOffer = function () {
   return {
     title: 'Заголовок',
-    // address: `${myLocation.lat}, ${myLocation.lng}`,
     address: 'Адрес',
     price: getRandomInteger(1, 999999),
     type: getRandomElement(types),
