@@ -7,6 +7,16 @@ const disabledForm = function () {
     const element = formElements[index];
     element.disabled = true;
   }
+
+  const filter = document.querySelector('.map__filters');
+  filter.classList.add('map__filters--disabled');
+  const filterSelectElements = Array.from(filter.querySelectorAll('select'));
+  const filterFieldsetElements = Array.from(filter.querySelectorAll('fieldset'));
+  const filterElements = filterSelectElements.concat(filterFieldsetElements);
+  for (let index = 0; index < filterElements.length; index++) {
+    const element = filterElements[index];
+    element.disabled = true;
+  }
 }
 
 export { disabledForm }
