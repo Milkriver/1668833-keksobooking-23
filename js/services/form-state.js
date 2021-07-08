@@ -22,6 +22,6 @@ const setFormState = function (formState) {
     form.classList.remove('ad-form--disabled');
     filter.classList.remove('map__filters--disabled');
   }
-}
+};
 
-export { setFormState }
+export { setFormState };
