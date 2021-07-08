@@ -44,29 +44,9 @@ const renderSingleCard = function (card) {
   const features = makeElement('ul', 'popup__features');
   article.appendChild(features);
   for (let index = 0; index < offer.features.length; index++) {
-    const feature = offer.features[index];
-    let featureElement;
-    switch (feature) {
-      case 'wifi':
-        featureElement = makeElement('li', 'popup__feature--wifi', 'WiFi');
-        break;
-      case 'dishwasher':
-        featureElement = makeElement('li', 'popup__feature--dishwasher', 'посудомоечная машина');
-        break;
-      case 'washer':
-        featureElement = makeElement('li', 'popup__feature--washer', 'стиральная машина');
-        break;
-      case 'elevator':
-        featureElement = makeElement('li', 'popup__feature--elevator', 'лифт');
-        break;
-      case 'parking':
-        featureElement = makeElement('li', 'popup__feature--parking', 'парковка');
-        break;
-      case 'conditioner':
-        featureElement = makeElement('li', 'popup__feature--conditioner', 'кондиционер');
-        break;
-    }
-    features.appendChild(featureElement);
+    const feature = createElement('li', 'popup__feature');
+    feature.classList.add(`popup__feature--${offer.features[index]}`);
+    featuresElement.appendChild(feature);
   }
 
   const description = makeElement('p', 'popup__description', offer.description);
