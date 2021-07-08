@@ -1,4 +1,4 @@
-const makeElement = function (tagName, className, text) {
+const createElement = function (tagName, className, text) {
   const element = document.createElement(tagName);
   element.classList.add(className);
   if (text) {
@@ -7,4 +7,4 @@ const makeElement = function (tagName, className, text) {
   return element;
 };
 
-export { makeElement };
+export { createElement };
