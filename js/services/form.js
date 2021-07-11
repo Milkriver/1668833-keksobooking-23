@@ -14,7 +14,7 @@ const activateForm = () => {
   });
   form.classList.remove('ad-form--disabled');
   filter.classList.remove('map__filters--disabled');
-}
+};
 
 const deactivateForm = () => {
   formElements.forEach((element) => {
@@ -25,13 +25,13 @@ const deactivateForm = () => {
   });
   form.classList.add('ad-form--disabled');
   filter.classList.add('map__filters--disabled');
-}
+};
 
-const roomNumberSelect = form.querySelector("#room_number");
-const capacitySelect = form.querySelector("#capacity");
+const roomNumberSelect = form.querySelector('#room_number');
+const capacitySelect = form.querySelector('#capacity');
 
-const timein = form.querySelector("#timein");
-const timeout = form.querySelector("#timeout");
+const timein = form.querySelector('#timein');
+const timeout = form.querySelector('#timeout');
 
 timein.addEventListener('change', () => {
   timeout.value = timein.value;
@@ -51,7 +51,7 @@ const disableCapacityOptions = () => {
   capacity1Guests.disabled = true;
   capacity2Guests.disabled = true;
   capacity3Guests.disabled = true;
-}
+};
 
 const validation = {
   1: () => {
@@ -73,13 +73,13 @@ const validation = {
     capacityNotForGuests.disabled = false;
     capacityNotForGuests.selected = true;
   },
-}
+};
 
 const validateGuests = () => {
   const selectedOption = roomNumberSelect.options[roomNumberSelect.selectedIndex];
   disableCapacityOptions();
   validation[selectedOption.value]();
-}
+};
 
 roomNumberSelect.addEventListener('change', validateGuests);
 
