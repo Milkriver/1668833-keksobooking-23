@@ -5,5 +5,5 @@ const cards = getRandomCards();
 const card = cards[0];
 renderCard(card);
 deactivateForm(true);
-setTimeout(activateForm, 3000, false);
+setTimeout(activateForm, 1000, false);
 validateGuests();
