@@ -4,6 +4,24 @@ const filter = document.querySelector('.map__filters');
 const filterSelectElements = Array.from(filter.querySelectorAll('select'));
 const filterFieldsetElements = Array.from(filter.querySelectorAll('fieldset'));
 const filterElements = filterSelectElements.concat(filterFieldsetElements);
+const appartmentPrice = document.querySelector('#price');
+const appartmentType = document.querySelector('#type');
+
+const apartmentTypesMinPrice = {
+  'bungalow': '0',
+  'flat': '1000',
+  'hotel': '3000',
+  'house': '5000',
+  'palace': '10000',
+};
+
+const  changeMinPrice = () => {
+  const minPrice = apartmentTypesMinPrice [appartmentType.value];
+  appartmentPrice.min = minPrice;
+  appartmentPrice.placeholder = minPrice;
+};
+appartmentType.addEventListener('change', changeMinPrice);
+
 
 const activateForm = () => {
   formElements.forEach((element) => {
