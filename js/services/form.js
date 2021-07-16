@@ -101,4 +101,9 @@ const validateGuests = () => {
 
 roomNumberSelect.addEventListener('change', validateGuests);
 
-export { activateForm, deactivateForm, validateGuests };
+const setAddressValue = (coordinateObject) => {
+  document.querySelector('#address').value =
+    `Широта: ${coordinateObject.lat.toFixed(3)}, долгота: ${coordinateObject.lng.toFixed(3)}`;
+};
+
+export { activateForm, deactivateForm, validateGuests, setAddressValue };
