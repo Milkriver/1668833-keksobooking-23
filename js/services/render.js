@@ -36,10 +36,12 @@ const renderCard = function ({ offer, author }) {
   for (let index = 0; index < offer.photos.length; index++) {
     const photoOffer = createElement('img', 'popup__photo');
     photoOffer.src = offer.photos[index];
+    photoOffer.width = '80';
+    photoOffer.height = '80';
     photosElement.appendChild(photoOffer);
   }
-  mapOffer.appendChild(template);
 
+  return template;
 };
 
 export { renderCard };

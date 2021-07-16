@@ -3,16 +3,16 @@ import { renderCard } from './services/render.js';
 import { activateForm, deactivateForm, validateGuests } from './services/form.js';
 const cards = getRandomCards();
 const card = cards[0];
-const offer = renderCard(card);
+console.log(card);
 deactivateForm(true);
 // setTimeout(activateForm, 1000, false);
 validateGuests();
 
 const map = L.map('map-canvas')
-.on('load', () => {
-  activateForm(true);
-  console.log('Карта инициализирована');
-})
+  .on('load', () => {
+    activateForm(true);
+    console.log('Карта инициализирована');
+  })
   .setView({
     lat: 35.6895,
     lng: 139.69171,
@@ -51,8 +51,8 @@ const mainPinMarker = L.marker(
 setAddressValue(defaultCoordinate);
 
 mainPinMarker
-.addTo(map)
-.bindPopup('Главная точка');
+  .addTo(map)
+  .bindPopup('Главная точка');
 
 mainPinMarker.on('moveend', (evt) => {
   let coordinates = evt.target.getLatLng();
@@ -76,6 +76,13 @@ const marker = L.marker(
 
 setAddressValue(defaultCoordinate);
 
+const  renderObject = {
+  offer: card.offer,
+  author: card.author,
+}
+
 marker
-.addTo(map)
-.bindPopup('offer.value');
+  .addTo(map)
+  .bindPopup(
+    renderCard(renderObject));
+
