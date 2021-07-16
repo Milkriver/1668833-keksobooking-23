@@ -1,6 +1,6 @@
 import { createElement } from '../utils/generate.js';
 
-const mapOffer = document.querySelector('.map__canvas');
+// const mapOffer = document.querySelector('.map__canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const apartmentTypes = {
