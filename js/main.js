@@ -1,36 +1,22 @@
 import { getRandomCards } from './data.js';
 import { renderCard } from './services/render.js';
-import { activateForm, deactivateForm, validateGuests } from './services/form.js';
+import { initMap } from './services/map.js';
+import { activateForm, deactivateForm, validateGuests, setAddressValue } from './services/form.js';
 const cards = getRandomCards();
 const card = cards[0];
 deactivateForm(true);
 validateGuests();
 
-const map = L.map('map-canvas')
-  .on('load', () => {
-    activateForm(true);
-  })
-  .setView({
-    lat: 35.6895,
-    lng: 139.69171,
-  }, 10);
-
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
-
-const setAddressValue = (coordinateObject) => {
-  document.querySelector('#address').value =
-    `Широта: ${coordinateObject.lat.toFixed(3)}, долгота: ${coordinateObject.lng.toFixed(3)}`;
-};
-
 const defaultCoordinate = {
   lat: 35.6895,
   lng: 139.69171,
 };
+
+const mapContainerId = 'map-canvas';
+
+const onMapLoad = () => activateForm(true);
+
+const map = initMap(defaultCoordinate, mapContainerId, onMapLoad);
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
