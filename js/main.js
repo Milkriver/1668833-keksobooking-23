@@ -5,7 +5,6 @@ const cards = getRandomCards();
 const card = cards[0];
 console.log(card);
 deactivateForm(true);
-// setTimeout(activateForm, 1000, false);
 validateGuests();
 
 const map = L.map('map-canvas')
