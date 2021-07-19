@@ -1,6 +1,5 @@
 import { createElement } from '../utils/generate.js';
 
-// const mapOffer = document.querySelector('.map__canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const apartmentTypes = {
@@ -25,20 +24,25 @@ const renderCard = function ({ offer, author }) {
 
   const featuresElement = template.querySelector('.popup__features');
   featuresElement.innerHTML = '';
-  for (let index = 0; index < offer.features.length; index++) {
-    const feature = createElement('li', 'popup__feature');
-    feature.classList.add(`popup__feature--${offer.features[index]}`);
-    featuresElement.appendChild(feature);
+  if (offer.features) {
+    for (let index = 0; index < offer.features.length; index++) {
+      const feature = createElement('li', 'popup__feature');
+      feature.classList.add(`popup__feature--${offer.features[index]}`);
+      featuresElement.appendChild(feature);
+    }
   }
+
 
   const photosElement = template.querySelector('.popup__photos');
   photosElement.innerHTML = '';
-  for (let index = 0; index < offer.photos.length; index++) {
-    const photoOffer = createElement('img', 'popup__photo');
-    photoOffer.src = offer.photos[index];
-    photoOffer.width = '80';
-    photoOffer.height = '80';
-    photosElement.appendChild(photoOffer);
+  if (offer.photos){
+    for (let index = 0; index < offer.photos.length; index++) {
+      const photoOffer = createElement('img', 'popup__photo');
+      photoOffer.src = offer.photos[index];
+      photoOffer.width = '80';
+      photoOffer.height = '80';
+      photosElement.appendChild(photoOffer);
+    }
   }
 
   return template;
