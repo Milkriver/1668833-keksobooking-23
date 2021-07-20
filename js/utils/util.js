@@ -21,7 +21,7 @@ const getRandomElement = function (collection) {
 
 const getRandomElements = function (collection, elementsCount) {
 
-  const numberElement = elementsCount == undefined
+  const numberElement = elementsCount === undefined
     ? getRandomInteger(1, collection.length)
     : elementsCount;
 
