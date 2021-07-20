@@ -1,7 +1,8 @@
+const zoomLevel = 10;
 const initMap = function(coordinate, containerId, onLoad){
   const map = L.map(containerId)
     .on('load', onLoad)
-    .setView(coordinate, 10);
+    .setView(coordinate, zoomLevel);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

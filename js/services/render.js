@@ -1,7 +1,9 @@
 import { createElement } from '../utils/generate.js';
 
-// const mapOffer = document.querySelector('.map__canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+const successTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+
 
 const apartmentTypes = {
   'flat': 'Квартира',
@@ -25,23 +27,40 @@ const renderCard = function ({ offer, author }) {
 
   const featuresElement = template.querySelector('.popup__features');
   featuresElement.innerHTML = '';
-  for (let index = 0; index < offer.features.length; index++) {
-    const feature = createElement('li', 'popup__feature');
-    feature.classList.add(`popup__feature--${offer.features[index]}`);
-    featuresElement.appendChild(feature);
+  if (offer.features) {
+    for (let index = 0; index < offer.features.length; index++) {
+      const feature = createElement('li', 'popup__feature');
+      feature.classList.add(`popup__feature--${offer.features[index]}`);
+      featuresElement.appendChild(feature);
+    }
   }
+
 
   const photosElement = template.querySelector('.popup__photos');
   photosElement.innerHTML = '';
-  for (let index = 0; index < offer.photos.length; index++) {
-    const photoOffer = createElement('img', 'popup__photo');
-    photoOffer.src = offer.photos[index];
-    photoOffer.width = '80';
-    photoOffer.height = '80';
-    photosElement.appendChild(photoOffer);
+  if (offer.photos){
+    for (let index = 0; index < offer.photos.length; index++) {
+      const photoOffer = createElement('img', 'popup__photo');
+      photoOffer.src = offer.photos[index];
+      photoOffer.width = '80';
+      photoOffer.height = '80';
+      photosElement.appendChild(photoOffer);
+    }
   }
 
   return template;
 };
 
-export { renderCard };
+const renderSuccess = function () {
+  const template = successTemplate.cloneNode(true);
+
+  return template;
+};
+
+const renderFail = function () {
+  const template = errorTemplate.cloneNode(true);
+
+  return template;
+};
+
+export { renderCard, renderSuccess, renderFail };
