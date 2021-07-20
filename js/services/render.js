@@ -1,6 +1,9 @@
 import { createElement } from '../utils/generate.js';
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+const successTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+
 
 const apartmentTypes = {
   'flat': 'Квартира',
@@ -48,4 +51,16 @@ const renderCard = function ({ offer, author }) {
   return template;
 };
 
-export { renderCard };
+const renderSuccess = function () {
+  const template = successTemplate.cloneNode(true);
+
+  return template;
+};
+
+const renderFail = function () {
+  const template = errorTemplate.cloneNode(true);
+
+  return template;
+};
+
+export { renderCard, renderSuccess, renderFail };

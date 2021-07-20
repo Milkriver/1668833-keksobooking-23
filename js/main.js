@@ -1,14 +1,44 @@
-import { getRandomCards } from './data.js';
-import { renderCard } from './services/render.js';
+import { renderCard, renderSuccess, renderFail } from './services/render.js';
 import { initMap } from './services/map.js';
 import { getRandomInteger, getRandomElements } from './utils/util.js';
-import { getData } from './services/incomingData.js';
+import { sendData, getData } from './services/api.js';
 import { activateForm, deactivateForm, validateGuests, setAddressValue } from './services/form.js';
 deactivateForm(true);
 validateGuests();
 
+const my_func = function(event) {
+  const offerForm = document.querySelector(".ad-form")
+  event.preventDefault();
+  const onSuccess = () => {
+    const success = renderSuccess()
+    const evtListener = document.addEventListener("keydown", () => {
+      success.remove()
+      document.removeEventListener("keydown", evtListener)
+    }, true)
+    success.addEventListener("click", () => success.remove())
+
+    document.querySelector("body").append(success)
+
+  }
+  const onFail = () => {
+    const fail = renderFail()
+    const evtListener = document.addEventListener("keydown", () => {
+      fail.remove()
+      document.removeEventListener("keydown", evtListener)
+    }, true)
+    fail.addEventListener("click", () => fail.remove())
+
+    document.querySelector("body").append(fail)
+
+  }
+  sendData(onSuccess, onFail, offerForm);
+};
+
+const offerForm = document.querySelector(".ad-form");
+offerForm.addEventListener("submit", my_func);
+
+
 const numberOfOffers = getRandomInteger(0, 40);
-console.log(numberOfOffers);
 const onSuccess = (cardCollection) => {
   const points = cardCollection.slice(numberOfOffers, numberOfOffers + 10);
   for (let index = 0; index < points.length; index++) {

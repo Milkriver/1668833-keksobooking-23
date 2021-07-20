@@ -19,8 +19,12 @@ const getRandomElement = function (collection) {
   return collection[randomIndex];
 };
 
-const getRandomElements = function (collection) {
-  const numberElement = getRandomInteger(1, collection.length);
+const getRandomElements = function (collection, elementsCount) {
+
+  const numberElement = elementsCount == undefined
+    ? getRandomInteger(1, collection.length)
+    : elementsCount;
+
   const clone = collection.slice(0);
   const elements = [];
   for (let index = 0; index < numberElement; index++) {
