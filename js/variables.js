@@ -1,3 +1,21 @@
 // URL для запросов
-export const offersUrl = 'https://23.javascript.pages.academy/keksobooking/data';
-export const formUrl = 'https://23.javascript.pages.academy/keksobooking';
+export const OFFERS_URL = 'https://23.javascript.pages.academy/keksobooking/data';
+export const FORM_URL = 'https://23.javascript.pages.academy/keksobooking';
+
+//Настройки для фильтра
+export const apartmentTypes = {
+  'flat': 'Квартира',
+  'bungalow': 'Бунгало',
+  'house': 'Дом',
+  'palace': 'Дворец',
+  'hotel': 'Отель',
+};
+
+export const priceLevels = {
+  low: [0, 10000],
+  middle: [10000, 50000],
+  high: [50000, 1000000],
+};
+
+//Настройки карты
+export const pinsNumber = 10;

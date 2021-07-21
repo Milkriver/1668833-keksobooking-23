@@ -1,17 +1,9 @@
 import { createElement } from '../utils/generate.js';
+import { apartmentTypes } from '../variables.js';
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-
-
-const apartmentTypes = {
-  'flat': 'Квартира',
-  'bungalow': 'Бунгало',
-  'house': 'Дом',
-  'palace': 'Дворец',
-  'hotel': 'Отель',
-};
 
 const renderCard = function ({ offer, author }) {
   const template = cardTemplate.cloneNode(true);
