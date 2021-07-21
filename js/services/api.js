@@ -1,4 +1,4 @@
-import { formUrl, offersUrl } from '../variables.js';
+import { FORM_URL, OFFERS_URL } from '../variables.js';
 
 const doFetch = (url, options) =>
   fetch(url, options)
@@ -16,7 +16,7 @@ const sendData = (onSuccess, onFail, formElem) => {
     body: new FormData(formElem),
   };
 
-  doFetch(formUrl, options)
+  doFetch(FORM_URL, options)
     .then((json) => {
       onSuccess(json);
     })
@@ -26,7 +26,7 @@ const sendData = (onSuccess, onFail, formElem) => {
 };
 
 const getData = (onSuccess, onFail) => {
-  doFetch(offersUrl)
+  doFetch(OFFERS_URL)
     .then((json) => {
       if (onSuccess !== undefined && typeof onSuccess === 'function') {
         onSuccess(json);
