@@ -53,7 +53,8 @@ const renderCard = function ({ offer, author }) {
 
 const renderSuccess = function () {
   const template = successTemplate.cloneNode(true);
-
+  const SuccessMessage = createElement('p', 'success__message--extra', 'Для возврата на сайт нажмите любую клавишу');
+  template.appendChild(SuccessMessage);
   return template;
 };
 

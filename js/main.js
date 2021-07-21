@@ -27,8 +27,7 @@ const mainPinMarker = L.marker(
   },
 );
 
-const formMessage = function(event) {
-  event.preventDefault();
+
   const onSendSuccess = () => {
     const success = renderSuccess();
     const evtListener = document.addEventListener('keydown', () => {
@@ -38,6 +37,7 @@ const formMessage = function(event) {
     success.addEventListener('click', () => success.remove());
     document.querySelector('body').append(success);
   };
+
   const onSendFail = () => {
     const fail = renderFail();
     const evtListener = document.addEventListener('keydown', () => {
@@ -47,15 +47,18 @@ const formMessage = function(event) {
     fail.addEventListener('click', () => fail.remove());
     document.querySelector('body').append(fail);
   };
+
+const handleFormSubmit = function(event) {
+  event.preventDefault();
   sendData(onSendSuccess, onSendFail, offerForm);
 };
 
-offerForm.addEventListener('submit', formMessage);
+offerForm.addEventListener('submit', handleFormSubmit);
 
 
-const numberOfOffers = getRandomInteger(0, 40);
+const offersCount = getRandomInteger(0, 40);
 const onGetSuccess = (cardCollection) => {
-  const points = cardCollection.slice(numberOfOffers, numberOfOffers + 10);
+  const points = cardCollection.slice(offersCount, offersCount + 10);
   for (let index = 0; index < points.length; index++) {
     const card = points[index];
     const icon = L.icon({

@@ -946,6 +946,7 @@ fieldset {
 }
 
 .success__message,
+.success__message--extra,
 .error__message {
   position: relative;
 
