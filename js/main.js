@@ -3,6 +3,8 @@ import { initMap } from './services/map.js';
 import { getRandomInteger } from './utils/util.js';
 import { sendData, getData } from './services/api.js';
 import { activateForm, deactivateForm, validateGuests, setAddressValue } from './services/form.js';
+import { initFilter } from './services/filters.js';
+
 deactivateForm(true);
 validateGuests();
 const offerForm = document.querySelector('.ad-form');
@@ -26,7 +28,6 @@ const mainPinMarker = L.marker(
     icon: mainPinIcon,
   },
 );
-
 
   const onSendSuccess = () => {
     const success = renderSuccess();
@@ -55,6 +56,7 @@ const handleFormSubmit = function(event) {
 
 offerForm.addEventListener('submit', handleFormSubmit);
 
+initFilter();
 
 const offersCount = getRandomInteger(0, 40);
 const onGetSuccess = (cardCollection) => {
