@@ -6,10 +6,8 @@ const doFetch = (url, options) =>
       if (response.ok) {
         return response.json();
       }
-
       throw new Error(`${response.status} ${response.statusText}`);
     });
-
 const sendData = (onSuccess, onFail, formElem) => {
   const options = {
     method: 'POST',
@@ -25,11 +23,11 @@ const sendData = (onSuccess, onFail, formElem) => {
     });
 };
 
-const getData = (onSuccess, onFail) => {
+const getOffers = (onSuccess, onFail) => {
   doFetch(OFFERS_URL)
-    .then((json) => {
+    .then((data) => {
       if (onSuccess !== undefined && typeof onSuccess === 'function') {
-        onSuccess(json);
+        onSuccess(data);
       }
     })
     .catch((err) => {
@@ -39,4 +37,4 @@ const getData = (onSuccess, onFail) => {
     });
 };
 
-export { sendData, getData };
+export { sendData, getOffers };

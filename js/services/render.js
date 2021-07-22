@@ -16,7 +16,6 @@ const renderCard = function ({ offer, author }) {
   template.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнат для ${offer.guests} гостей`;
   template.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   template.querySelector('.popup__description').textContent = offer.description;
-
   const featuresElement = template.querySelector('.popup__features');
   featuresElement.innerHTML = '';
   if (offer.features) {
@@ -26,8 +25,6 @@ const renderCard = function ({ offer, author }) {
       featuresElement.appendChild(feature);
     }
   }
-
-
   const photosElement = template.querySelector('.popup__photos');
   photosElement.innerHTML = '';
   if (offer.photos){
@@ -39,7 +36,6 @@ const renderCard = function ({ offer, author }) {
       photosElement.appendChild(photoOffer);
     }
   }
-
   return template;
 };
 
@@ -49,11 +45,8 @@ const renderSuccess = function () {
   template.appendChild(SuccessMessage);
   return template;
 };
-
 const renderFail = function () {
   const template = errorTemplate.cloneNode(true);
-
   return template;
 };
-
 export { renderCard, renderSuccess, renderFail };
