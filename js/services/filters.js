@@ -45,10 +45,9 @@ const filterOffers = (offers) => offers.filter(({ offer }) => {
   if (conditioner.checked && (!offer.features || !offer.features.includes('conditioner'))) {
     return false;
   }
-  console.log(guests.value);
-  console.log(offer);
+
   if (rooms.value !== 'any' && offer.rooms !== Number(rooms.value)) {
-  return false;
+    return false;
   }
   if (guests.value !== 'any' && offer.guests !== Number(guests.value)) {
     return false;
@@ -60,7 +59,7 @@ const initFilter = (onFilterChange) => {
   allSelectFilters.forEach((elem) => {
     elem.addEventListener('change', onFilterChange);
   });
-  allCheckboxFilters.forEach( (elem) => {
+  allCheckboxFilters.forEach((elem) => {
     elem.addEventListener('change', onFilterChange);
   });
 };

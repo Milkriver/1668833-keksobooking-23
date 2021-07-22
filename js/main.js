@@ -1,4 +1,4 @@
-import { renderCard, renderSuccess, renderFail } from './services/render.js';
+import { renderSuccess, renderFail } from './services/render.js';
 import { initMap, renderOffers } from './services/map.js';
 import { sendData, getOffers } from './services/api.js';
 import { activateForm, deactivateForm, validateGuests, setAddressValue } from './services/form.js';
