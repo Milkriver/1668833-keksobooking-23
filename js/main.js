@@ -1,34 +1,22 @@
 import { renderCard, renderSuccess, renderFail } from './services/render.js';
-import { initMap } from './services/map.js';
-import { getRandomInteger } from './utils/util.js';
-import { sendData, getData } from './services/api.js';
+import { initMap, renderOffers } from './services/map.js';
+import { sendData, getOffers } from './services/api.js';
 import { activateForm, deactivateForm, validateGuests, setAddressValue } from './services/form.js';
-import { initFilter } from './services/filters.js';
-import { pinsNumber } from './variables.js';
+import { initFilter, filterOffers } from './services/filters.js';
+// import { pinsNumber } from './variables.js';
 
 deactivateForm(true);
 validateGuests();
 const offerForm = document.querySelector('.ad-form');
-const defaultCoordinate = {
+
+const MAP_CONTAINER_ID = 'map-canvas';
+const mapCenter = {
   lat: 35.6895,
   lng: 139.69171,
 };
 
-const mapContainerId = 'map-canvas';
 const onMapLoad = () => activateForm(true);
-const map = initMap(defaultCoordinate, mapContainerId, onMapLoad);
-const mainPinIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
-});
-const mainPinMarker = L.marker(
-  defaultCoordinate,
-  {
-    draggable: true,
-    icon: mainPinIcon,
-  },
-);
+initMap(MAP_CONTAINER_ID, mapCenter, onMapLoad);
 
 const onSendSuccess = () => {
   const success = renderSuccess();
@@ -57,80 +45,16 @@ const handleFormSubmit = function (event) {
 
 offerForm.addEventListener('submit', handleFormSubmit);
 
-const handleFilterReady = function (filter) {
-  getData((items) => onGetSuccess(items, filter))
-}
-
-initFilter(handleFilterReady)
-
-// const offersCount = getRandomInteger(0, 40);
-const onGetSuccess = (cardCollection, filter) => {
-
-  let cards = cardCollection;
-  let filtredArray = [];
-  for (let i = 0; i < cards.length; i++) {
-    let testCard = cards[i];
-    // console.log(testCard.offer.type);
-    // console.log(filter);
-    if (filter.type === testCard.offer.type) {
-      // console.log(filter.type);
-      filtredArray.push(testCard)
-    }
-  }
-
-  filtredArray = filtredArray.slice(0, pinsNumber);
-  console.log(filtredArray)
-  // cards = cards.slice(0, pinsNumber);
-
-  for (let index = 0; index < cards.length; index++) {
-    const card = filtredArray[index];
-    const icon = L.icon({
-      iconUrl: './img/pin.svg',
-      iconSize: [52, 52],
-      iconAnchor: [26, 52],
-    });
-    const marker = L.marker(
-      {
-        lat: card.location.lat,
-        lng: card.location.lng,
-      },
-      {
-        icon: icon,
-      },
-    );
-    marker
-      .addTo(map)
-      .bindPopup(
-        renderCard({
-          offer: card.offer,
-          author: card.author,
-        }),
-        {
-          keepInView: true,
-        },
-
-      );
-    // console.log(filtredArray);
-    // const cleanFilter = function () {
-    //   let filtredArray = [];
-    //   marker.remove();
-    // }
-    // filter.addEventListener('change', cleanFilter);
-
-
-  }
-};
-getData(onGetSuccess);
-
-setAddressValue(defaultCoordinate);
-
-mainPinMarker
-  .addTo(map)
-  .bindPopup('Главная точка');
-
-mainPinMarker.on('moveend', (evt) => {
-  const coordinates = evt.target.getLatLng();
-  setAddressValue(coordinates);
+let offers = [];
+getOffers((data) => {
+  offers = data;
+  const slicedOffers = data.slice(0, 10);
+  renderOffers(slicedOffers);
 });
 
-setAddressValue(defaultCoordinate);
+initFilter(() => {
+  const slicedOffers = offers.slice(0, 10);
+  renderOffers(filterOffers(slicedOffers));
+});
+
+setAddressValue(mapCenter);

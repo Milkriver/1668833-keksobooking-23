@@ -25,11 +25,11 @@ const sendData = (onSuccess, onFail, formElem) => {
     });
 };
 
-const getData = (onSuccess, onFail) => {
+const getOffers = (onSuccess, onFail) => {
   doFetch(OFFERS_URL)
-    .then((json) => {
+    .then((data) => {
       if (onSuccess !== undefined && typeof onSuccess === 'function') {
-        onSuccess(json);
+        onSuccess(data);
       }
     })
     .catch((err) => {
@@ -39,4 +39,4 @@ const getData = (onSuccess, onFail) => {
     });
 };
 
-export { sendData, getData };
+export { sendData, getOffers };
