@@ -4,6 +4,7 @@ import { sendData, getOffers } from './services/api.js';
 import { activateForm, deactivateForm, validateGuests, setAddressValue } from './services/form.js';
 import { initFilter, filterOffers } from './services/filters.js';
 import { pinsNumber } from './variables.js';
+import { debounce } from './utils/debounce.js';
 
 deactivateForm(true);
 validateGuests();
@@ -53,7 +54,7 @@ getOffers((data) => {
 });
 
 initFilter(() => {
-  renderOffers(filterOffers(offers).slice(0, pinsNumber));
+  debounce(renderOffers(filterOffers(offers).slice(0, pinsNumber)));
 });
 
 setAddressValue(mapCenter);
