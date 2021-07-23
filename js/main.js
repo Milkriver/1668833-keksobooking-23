@@ -3,7 +3,7 @@ import { initMap, renderOffers } from './services/map.js';
 import { sendData, getOffers } from './services/api.js';
 import { activateForm, deactivateForm, validateGuests, setAddressValue } from './services/form.js';
 import { initFilter, filterOffers } from './services/filters.js';
-import { pinsNumber } from './variables.js';
+import { PINS_NUMBER } from './variables.js';
 import { debounce } from './utils/debounce.js';
 
 deactivateForm(true);
@@ -49,12 +49,11 @@ offerForm.addEventListener('submit', handleFormSubmit);
 let offers = [];
 getOffers((data) => {
   offers = data;
-  const slicedOffers = data.slice(0, pinsNumber);
+  const slicedOffers = data.slice(0, PINS_NUMBER);
   renderOffers(slicedOffers);
 });
 
-initFilter(() => {
-  debounce(renderOffers(filterOffers(offers).slice(0, pinsNumber)));
-});
+const debouncedRenderOffers = debounce(renderOffers(filterOffers(offers).slice(0, PINS_NUMBER)));
+initFilter(debouncedRenderOffers);
 
 setAddressValue(mapCenter);

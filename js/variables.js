@@ -12,4 +12,4 @@ export const apartmentTypes = {
 };
 
 //Настройки карты
-export const pinsNumber = 10;
+export const PINS_NUMBER = 10;
