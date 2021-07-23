@@ -53,7 +53,9 @@ getOffers((data) => {
   renderOffers(slicedOffers);
 });
 
-const debouncedRenderOffers = debounce(renderOffers(filterOffers(offers).slice(0, PINS_NUMBER)));
+const debouncedRenderOffers = debounce(() => {
+  renderOffers(filterOffers(offers).slice(0, PINS_NUMBER));
+});
 initFilter(debouncedRenderOffers);
 
 setAddressValue(mapCenter);
