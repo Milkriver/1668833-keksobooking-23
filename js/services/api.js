@@ -1,4 +1,4 @@
-import { formUrl, offersUrl } from '../variables.js';
+import { FORM_URL, OFFERS_URL } from '../variables.js';
 
 const doFetch = (url, options) =>
   fetch(url, options)
@@ -6,17 +6,15 @@ const doFetch = (url, options) =>
       if (response.ok) {
         return response.json();
       }
-
       throw new Error(`${response.status} ${response.statusText}`);
     });
-
 const sendData = (onSuccess, onFail, formElem) => {
   const options = {
     method: 'POST',
     body: new FormData(formElem),
   };
 
-  doFetch(formUrl, options)
+  doFetch(FORM_URL, options)
     .then((json) => {
       onSuccess(json);
     })
@@ -25,11 +23,11 @@ const sendData = (onSuccess, onFail, formElem) => {
     });
 };
 
-const getData = (onSuccess, onFail) => {
-  doFetch(offersUrl)
-    .then((json) => {
+const getOffers = (onSuccess, onFail) => {
+  doFetch(OFFERS_URL)
+    .then((data) => {
       if (onSuccess !== undefined && typeof onSuccess === 'function') {
-        onSuccess(json);
+        onSuccess(data);
       }
     })
     .catch((err) => {
@@ -39,4 +37,4 @@ const getData = (onSuccess, onFail) => {
     });
 };
 
-export { sendData, getData };
+export { sendData, getOffers };

@@ -1,17 +1,9 @@
 import { createElement } from '../utils/generate.js';
+import { apartmentTypes } from '../variables.js';
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-
-
-const apartmentTypes = {
-  'flat': 'Квартира',
-  'bungalow': 'Бунгало',
-  'house': 'Дом',
-  'palace': 'Дворец',
-  'hotel': 'Отель',
-};
 
 const renderCard = function ({ offer, author }) {
   const template = cardTemplate.cloneNode(true);
@@ -24,7 +16,6 @@ const renderCard = function ({ offer, author }) {
   template.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнат для ${offer.guests} гостей`;
   template.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   template.querySelector('.popup__description').textContent = offer.description;
-
   const featuresElement = template.querySelector('.popup__features');
   featuresElement.innerHTML = '';
   if (offer.features) {
@@ -34,8 +25,6 @@ const renderCard = function ({ offer, author }) {
       featuresElement.appendChild(feature);
     }
   }
-
-
   const photosElement = template.querySelector('.popup__photos');
   photosElement.innerHTML = '';
   if (offer.photos){
@@ -47,20 +36,16 @@ const renderCard = function ({ offer, author }) {
       photosElement.appendChild(photoOffer);
     }
   }
-
   return template;
 };
 
 const renderSuccess = function () {
   const template = successTemplate.cloneNode(true);
-
+  const successMessage = createElement('p', 'success__message--extra', 'Для возврата на сайт нажмите любую клавишу');
+  template.appendChild(successMessage);
   return template;
 };
-
 const renderFail = function () {
-  const template = errorTemplate.cloneNode(true);
-
-  return template;
+  return errorTemplate.cloneNode(true);
 };
-
 export { renderCard, renderSuccess, renderFail };
