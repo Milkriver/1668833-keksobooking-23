@@ -41,12 +41,11 @@ const renderCard = function ({ offer, author }) {
 
 const renderSuccess = function () {
   const template = successTemplate.cloneNode(true);
-  const SuccessMessage = createElement('p', 'success__message--extra', 'Для возврата на сайт нажмите любую клавишу');
-  template.appendChild(SuccessMessage);
+  const successMessage = createElement('p', 'success__message--extra', 'Для возврата на сайт нажмите любую клавишу');
+  template.appendChild(successMessage);
   return template;
 };
 const renderFail = function () {
-  const template = errorTemplate.cloneNode(true);
-  return template;
+  return errorTemplate.cloneNode(true);
 };
 export { renderCard, renderSuccess, renderFail };
