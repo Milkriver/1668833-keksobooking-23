@@ -1,5 +1,5 @@
-import {renderCard} from './render.js';
-import {setAddressValue} from './form.js';
+import { renderCard } from './render.js';
+import { setAddressValue } from './form.js';
 
 const ZOOM_LEVEL = 14;
 let map = null;
@@ -17,7 +17,7 @@ const mainPinIcon = L.icon({
   iconAnchor: [26, 52],
 });
 
-const initMap = function(containerId, centerCoordinates, onLoad){
+const initMap = function (containerId, centerCoordinates, onLoad) {
   map = L.map(containerId)
     .on('load', onLoad)
     .setView(centerCoordinates, ZOOM_LEVEL);
@@ -49,14 +49,14 @@ const initMap = function(containerId, centerCoordinates, onLoad){
 
 const renderOffers = (offers) => {
   markerGroup.clearLayers();
-  for (let index = 0; index < offers.length; index++) {
-    const offer = offers[index];
+  offers.forEach(offer => {
     const marker = L.marker({
       lat: offer.location.lat,
       lng: offer.location.lng,
     }, {
       icon: pinIcon,
     });
+
     marker
       .addTo(markerGroup)
       .bindPopup(
@@ -68,7 +68,7 @@ const renderOffers = (offers) => {
           keepInView: true,
         },
       );
-  }
+  });
 };
 
 export { initMap, renderOffers };
