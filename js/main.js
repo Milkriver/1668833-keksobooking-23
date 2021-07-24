@@ -1,4 +1,3 @@
-import { renderSuccess, renderFail } from './services/render.js';
 import { initMap, renderOffers, resetMainMarker, updateView } from './services/map.js';
 import { sendData, getOffers } from './services/api.js';
 import { activateForm, deactivateForm, guestsValidateHandler, resetForm, setAddressValue } from './services/form.js';
@@ -22,12 +21,12 @@ const onMapLoad = () => activateForm(true);
 initMap(MAP_CONTAINER_ID, mapCenter, onMapLoad);
 
 const onSendSuccess = () => {
-  showSuccessDialog()
+  showSuccessDialog();
   offerForm.reset();
 };
 
 const onSendFail = (message) => {
-  showErrorDialog(message)
+  showErrorDialog(message);
 };
 
 const onFormSubmit = (event) => {

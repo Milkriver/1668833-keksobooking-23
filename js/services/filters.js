@@ -6,42 +6,62 @@ const priceRanges = {
 
 const allSelectFilters = document.querySelectorAll('.map__filter');
 const allCheckboxFilters = document.querySelectorAll('.map__checkbox');
-const rooms = document.querySelector('#housing-rooms');
-const guests = document.querySelector('#housing-guests');
-const type = document.querySelector('#housing-type');
-const price = document.querySelector('#housing-price');
-const offerFeatures = Array.from(document.querySelectorAll('.map__checkbox'));
+const roomsElement = document.querySelector('#housing-rooms');
+const guestsElement = document.querySelector('#housing-guests');
+const typeElement = document.querySelector('#housing-type');
+const priceElement = document.querySelector('#housing-price');
+const featureElements = Array.from(document.querySelectorAll('.map__checkbox'));
 let onFilterChange = null;
 
-const filterOffers = (offers) => offers.filter(({ offer }) => {
-  if (type.value !== 'any' && offer.type !== type.value) {
+const isTypeMatch = (type) => {
+  if (typeElement.value !== 'any' && type !== typeElement.value) {
     return false;
   }
-  if (price.value !== 'any') {
-    const [from, to] = priceRanges[price.value];
-    if (offer.price < from || offer.price > to) {
+
+  return true;
+};
+
+const isPriceMatch = (price) => {
+  if (priceElement.value !== 'any') {
+    const [from, to] = priceRanges[priceElement.value];
+    if (price < from || price > to) {
       return false;
     }
   }
 
-  const isEveryFeatureMatches = offerFeatures.every((offerFeature) => {
-    if (offerFeature.checked && (!offer.features || !offer.features.includes(offerFeature.value))) {
-      return false;
-    }
-    return true;
-  });
+  return true;
+};
 
-  if (!isEveryFeatureMatches) {
-    return false;
-  }
-
-  if (rooms.value !== 'any' && offer.rooms !== Number(rooms.value)) {
-    return false;
-  }
-  if (guests.value !== 'any' && offer.guests !== Number(guests.value)) {
+const isFeatureMatches = (features) => featureElements.every((featureElement) => {
+  if (featureElement.checked && (!features || !features.includes(featureElement.value))) {
     return false;
   }
   return true;
+});
+
+const isRoomMatch = (rooms) => {
+  if (roomsElement.value !== 'any' && rooms !== Number(roomsElement.value)) {
+    return false;
+  }
+
+  return true;
+};
+
+const isGuestMatch = (guests) => {
+  if (guestsElement.value !== 'any' && guests !== Number(guestsElement.value)) {
+    return false;
+  }
+
+  return true;
+};
+
+const filterOffers = (offers) => offers.filter(({ offer }) => {
+  const { type, price, features, rooms, guests } = offer;
+  return isTypeMatch(type)
+    && isPriceMatch(price)
+    && isFeatureMatches(features)
+    && isRoomMatch(rooms)
+    && isGuestMatch(guests);
 });
 
 const initFilter = (onFilterExternalChange) => {

@@ -1,15 +1,5 @@
-import { KEYBOARD_KEYS } from "../variables.js";
-import { renderFail, renderSuccess } from "./render.js";
-
-const showSuccessDialog = () => {
-  const successElement = renderSuccess();
-  showDialog(successElement)
-}
-
-const showErrorDialog = (message) => {
-  const failElement = renderFail(message);
-  showDialog(failElement)
-}
+import { KEYBOARD_KEYS } from '../variables.js';
+import { renderFail, renderSuccess } from './render.js';
 
 const showDialog = (dialogElement) => {
   const onDialogClose = (evt) => {
@@ -17,10 +7,20 @@ const showDialog = (dialogElement) => {
       dialogElement.remove();
       document.removeEventListener('keydown', onDialogClose);
     }
-  }
+  };
   document.addEventListener('keydown', onDialogClose);
   dialogElement.addEventListener('click', onDialogClose);
   document.querySelector('body').append(dialogElement);
-}
+};
 
-export { showSuccessDialog, showErrorDialog }
+const showSuccessDialog = () => {
+  const successElement = renderSuccess();
+  showDialog(successElement);
+};
+
+const showErrorDialog = (message) => {
+  const failElement = renderFail(message);
+  showDialog(failElement);
+};
+
+export { showSuccessDialog, showErrorDialog };
