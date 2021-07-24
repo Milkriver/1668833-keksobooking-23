@@ -16,18 +16,22 @@ const renderCard = function ({ offer, author }) {
   template.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнат для ${offer.guests} гостей`;
   template.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   template.querySelector('.popup__description').textContent = offer.description;
+
   const featureElements = template.querySelector('.popup__features');
-  featureElements.innerHTML = '';
   if (offer.features) {
+    featureElements.innerHTML = '';
     offer.features.forEach((feature) => {
       const featureElement = createElement('li', 'popup__feature');
       featureElement.classList.add(`popup__feature--${feature}`);
       featureElements.appendChild(featureElement);
     });
+  } else {
+    featureElements.remove();
   }
+
   const photoElements = template.querySelector('.popup__photos');
-  photoElements.innerHTML = '';
   if (offer.photos) {
+    photoElements.innerHTML = '';
     offer.photos.forEach((photo) => {
       const photoElement = createElement('img', 'popup__photo');
       photoElement.src = photo;
@@ -35,6 +39,8 @@ const renderCard = function ({ offer, author }) {
       photoElement.height = '40';
       photoElements.appendChild(photoElement);
     });
+  } else {
+    photoElements.remove();
   }
 
   return template;
