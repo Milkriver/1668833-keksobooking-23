@@ -8,7 +8,7 @@ let mainMarker = null;
 
 const pinIcon = L.icon({
   iconUrl: './img/pin.svg',
-  iconSize: [52, 52],
+  iconSize: [40, 40],
   iconAnchor: [26, 52],
 });
 

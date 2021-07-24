@@ -104,6 +104,7 @@ roomNumberSelect.addEventListener('change', guestsValidateHandler);
 const setAddressValue = (coordinateObject) => {
   document.querySelector('#address').value =
     `Широта: ${coordinateObject.lat.toFixed(5)}, долгота: ${coordinateObject.lng.toFixed(5)}`;
+     address.setAttribute('readonly', 'readonly');
 };
 
 const resetForm = () => {
