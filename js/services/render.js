@@ -46,15 +46,17 @@ const renderCard = function ({ offer, author }) {
   return template;
 };
 
-const renderSuccess = function () {
+const renderSuccess = () => {
   const template = successTemplate.cloneNode(true);
   const successMessage = createElement('p', 'success__message--extra', 'Для возврата на сайт нажмите любую клавишу');
   template.appendChild(successMessage);
   return template;
 };
-const renderFail = function (message) {
+
+const renderFail = (message) => {
   const template = errorTemplate.cloneNode(true);
   template.querySelector('.error__message').textContent = message;
   return template;
 };
+
 export { renderCard, renderSuccess, renderFail };

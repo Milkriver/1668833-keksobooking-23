@@ -5,6 +5,7 @@ import { activateForm, deactivateForm, guestsValidateHandler, resetForm, setAddr
 import { initFilter, filterOffers, resetFilter } from './services/filters.js';
 import { DIALOG_MESSAGES, PINS_NUMBER } from './variables.js';
 import { debounce } from './utils/debounce.js';
+import { showErrorDialog, showSuccessDialog } from './services/dialog.js';
 
 deactivateForm(true);
 guestsValidateHandler();
@@ -21,24 +22,12 @@ const onMapLoad = () => activateForm(true);
 initMap(MAP_CONTAINER_ID, mapCenter, onMapLoad);
 
 const onSendSuccess = () => {
-  const success = renderSuccess();
-  const evtListener = document.addEventListener('keydown', () => {
-    success.remove();
-    document.removeEventListener('keydown', evtListener);
-  }, true);
-  success.addEventListener('click', () => success.remove());
-  document.querySelector('body').append(success);
+  showSuccessDialog()
   offerForm.reset();
 };
 
 const onSendFail = (message) => {
-  const fail = renderFail(message);
-  const evtListener = document.addEventListener('keydown', () => {
-    fail.remove();
-    document.removeEventListener('keydown', evtListener);
-  }, true);
-  fail.addEventListener('click', () => fail.remove());
-  document.querySelector('body').append(fail);
+  showErrorDialog(message)
 };
 
 const onFormSubmit = (event) => {
