@@ -11,5 +11,11 @@ export const apartmentTypes = {
   'hotel': 'Отель',
 };
 
+//Настройки сообщений
+export const DIALOG_MESSAGES = {
+  postOfferError: 'Ошибка размещения объявления',
+  getOfferError: 'Ошибка скачивания объявлений',
+};
+
 //Настройки карты
 export const PINS_NUMBER = 10;

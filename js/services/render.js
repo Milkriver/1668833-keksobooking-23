@@ -46,7 +46,9 @@ const renderSuccess = function () {
   template.appendChild(successMessage);
   return template;
 };
-const renderFail = function () {
-  return errorTemplate.cloneNode(true);
+const renderFail = function (message) {
+  const template = errorTemplate.cloneNode(true);
+  template.querySelector('.error__message').textContent = message;
+  return template;
 };
 export { renderCard, renderSuccess, renderFail };

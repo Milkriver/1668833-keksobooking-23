@@ -3,7 +3,7 @@ import { initMap, renderOffers, resetMainMarker, updateView } from './services/m
 import { sendData, getOffers } from './services/api.js';
 import { activateForm, deactivateForm, guestsValidateHandler, resetForm, setAddressValue } from './services/form.js';
 import { initFilter, filterOffers, resetFilter } from './services/filters.js';
-import { PINS_NUMBER } from './variables.js';
+import { DIALOG_MESSAGES, PINS_NUMBER } from './variables.js';
 import { debounce } from './utils/debounce.js';
 
 deactivateForm(true);
@@ -31,8 +31,8 @@ const onSendSuccess = () => {
   offerForm.reset();
 };
 
-const onSendFail = () => {
-  const fail = renderFail();
+const onSendFail = (message) => {
+  const fail = renderFail(message);
   const evtListener = document.addEventListener('keydown', () => {
     fail.remove();
     document.removeEventListener('keydown', evtListener);
@@ -43,7 +43,8 @@ const onSendFail = () => {
 
 const onFormSubmit = (event) => {
   event.preventDefault();
-  sendData(onSendSuccess, onSendFail, offerForm);
+  sendData(
+    onSendSuccess, () => onSendFail(DIALOG_MESSAGES.postOfferError), offerForm);
 };
 
 const onFormReset = () => {
@@ -59,11 +60,16 @@ offerForm.addEventListener('reset', onFormReset);
 offerForm.addEventListener('submit', onFormSubmit);
 
 let offers = [];
-getOffers((data) => {
+
+const onGetOffersSuccess = (data) => {
   offers = data;
   const slicedOffers = data.slice(0, PINS_NUMBER);
   renderOffers(slicedOffers);
-});
+};
+
+const onGetOffersFail = () => onSendFail(DIALOG_MESSAGES.getOfferError);
+
+getOffers(onGetOffersSuccess, onGetOffersFail);
 
 const debouncedRenderOffers = debounce(() => {
   renderOffers(filterOffers(offers).slice(0, PINS_NUMBER));
