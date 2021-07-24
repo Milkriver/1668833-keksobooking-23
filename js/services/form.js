@@ -15,15 +15,15 @@ const apartmentTypesMinPrice = {
   'palace': '10000',
 };
 
-const  minPriceChangeHandler = () => {
-  const minPrice = apartmentTypesMinPrice [appartmentType.value];
+const minPriceChangeHandler = () => {
+  const minPrice = apartmentTypesMinPrice[appartmentType.value];
   appartmentPrice.min = minPrice;
   appartmentPrice.placeholder = minPrice;
 };
 appartmentType.addEventListener('change', minPriceChangeHandler);
 
-
 const activateForm = () => {
+  minPriceChangeHandler()
   formElements.forEach((element) => {
     element.disabled = false;
   });
