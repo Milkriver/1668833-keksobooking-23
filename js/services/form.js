@@ -107,8 +107,7 @@ const setAddressValue = (coordinateObject) => {
 };
 
 const resetForm = () => {
-  document.querySelector('.ad-form').reset();
-  document.querySelector('#capacity').selectedIndex = 2;
+  guestsValidateHandler();
 };
 
 export { activateForm, deactivateForm, guestsValidateHandler, setAddressValue, resetForm };

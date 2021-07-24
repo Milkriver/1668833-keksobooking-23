@@ -28,10 +28,7 @@ const onSendSuccess = () => {
   }, true);
   success.addEventListener('click', () => success.remove());
   document.querySelector('body').append(success);
-  resetFilter();
-  resetForm();
-  updateView(mapCenter);
-  resetMainMarker(mapCenter);
+  offerForm.reset();
 };
 
 const onSendFail = () => {
@@ -44,12 +41,22 @@ const onSendFail = () => {
   document.querySelector('body').append(fail);
 };
 
-const OnFormSubmit = function (event) {
+const onFormSubmit = (event) => {
   event.preventDefault();
   sendData(onSendSuccess, onSendFail, offerForm);
 };
 
-offerForm.addEventListener('submit', OnFormSubmit);
+const onFormReset = () => {
+  setTimeout(() => {
+    resetForm();
+    resetFilter();
+    updateView(mapCenter);
+    resetMainMarker(mapCenter);
+  }, 0);
+};
+
+offerForm.addEventListener('reset', onFormReset);
+offerForm.addEventListener('submit', onFormSubmit);
 
 let offers = [];
 getOffers((data) => {

@@ -4,6 +4,7 @@ import { setAddressValue } from './form.js';
 const ZOOM_LEVEL = 14;
 let map = null;
 let markerGroup = null;
+let mainMarker = null;
 
 const pinIcon = L.icon({
   iconUrl: './img/pin.svg',
@@ -22,18 +23,23 @@ const updateView = (coordinates) => {
 };
 
 const resetMainMarker = (coordinates) => {
-  L.marker(
-    coordinates,
-    {
-      draggable: true,
-      icon: mainPinIcon,
-    },
-  )
-    .addTo(map)
-    .bindPopup('Главная точка')
-    .on('moveend', (evt) => {
-      setAddressValue(evt.target.getLatLng());
-    });
+  if (!mainMarker) {
+    mainMarker = L.marker(
+      coordinates,
+      {
+        draggable: true,
+        icon: mainPinIcon,
+      },
+    )
+      .addTo(map)
+      .bindPopup('Главная точка')
+      .on('moveend', (evt) => {
+        setAddressValue(evt.target.getLatLng());
+      });
+  } else {
+    mainMarker.setLatLng(coordinates);
+    setAddressValue(coordinates);
+  }
 };
 
 const initMap = function (containerId, centerCoordinates, onLoad) {

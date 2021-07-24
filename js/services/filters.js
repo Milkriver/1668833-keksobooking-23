@@ -11,6 +11,7 @@ const guests = document.querySelector('#housing-guests');
 const type = document.querySelector('#housing-type');
 const price = document.querySelector('#housing-price');
 const offerFeatures = Array.from(document.querySelectorAll('.map__checkbox'));
+let onFilterChange = null;
 
 const filterOffers = (offers) => offers.filter(({ offer }) => {
   if (type.value !== 'any' && offer.type !== type.value) {
@@ -43,13 +44,14 @@ const filterOffers = (offers) => offers.filter(({ offer }) => {
   return true;
 });
 
-const initFilter = (onFilterChange) => {
+const initFilter = (onFilterExternalChange) => {
   allSelectFilters.forEach((elem) => {
-    elem.addEventListener('change', onFilterChange);
+    elem.addEventListener('change', onFilterExternalChange);
   });
   allCheckboxFilters.forEach((elem) => {
-    elem.addEventListener('change', onFilterChange);
+    elem.addEventListener('change', onFilterExternalChange);
   });
+  onFilterChange = onFilterExternalChange;
 };
 
 const resetFilter = () => {
@@ -59,6 +61,10 @@ const resetFilter = () => {
   allCheckboxFilters.forEach((elem) => {
     elem.checked = false;
   });
+
+  if (onFilterChange) {
+    onFilterChange();
+  }
 };
 
 export { initFilter, filterOffers, resetFilter };
