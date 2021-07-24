@@ -23,14 +23,14 @@ const filterOffers = (offers) => offers.filter(({ offer }) => {
     }
   }
 
-  const isEveryFeatureMatches = offerFeatures.every(offerFeature => {
+  const isEveryFeatureMatches = offerFeatures.every((offerFeature) => {
     if (offerFeature.checked && (!offer.features || !offer.features.includes(offerFeature.value))) {
       return false;
     }
     return true;
   });
 
-  if(!isEveryFeatureMatches) {
+  if (!isEveryFeatureMatches) {
     return false;
   }
 
@@ -52,4 +52,13 @@ const initFilter = (onFilterChange) => {
   });
 };
 
-export { initFilter, filterOffers };
+const resetFilter = () => {
+  allSelectFilters.forEach((elem) => {
+    elem.value = 'any';
+  });
+  allCheckboxFilters.forEach((elem) => {
+    elem.checked = false;
+  });
+};
+
+export { initFilter, filterOffers, resetFilter };

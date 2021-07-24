@@ -19,7 +19,7 @@ const renderCard = function ({ offer, author }) {
   const featureElements = template.querySelector('.popup__features');
   featureElements.innerHTML = '';
   if (offer.features) {
-    offer.features.forEach(feature => {
+    offer.features.forEach((feature) => {
       const featureElement = createElement('li', 'popup__feature');
       featureElement.classList.add(`popup__feature--${feature}`);
       featureElements.appendChild(featureElement);
@@ -27,8 +27,8 @@ const renderCard = function ({ offer, author }) {
   }
   const photoElements = template.querySelector('.popup__photos');
   photoElements.innerHTML = '';
-  if (offer.photos){
-    offer.photos.forEach(photo => {
+  if (offer.photos) {
+    offer.photos.forEach((photo) => {
       const photoElement = createElement('img', 'popup__photo');
       photoElement.src = photo;
       photoElement.width = '45';
@@ -36,7 +36,7 @@ const renderCard = function ({ offer, author }) {
       photoElements.appendChild(photoElement);
     });
   }
-  
+
   return template;
 };
 

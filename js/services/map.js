@@ -17,22 +17,13 @@ const mainPinIcon = L.icon({
   iconAnchor: [26, 52],
 });
 
-const initMap = function (containerId, centerCoordinates, onLoad) {
-  map = L.map(containerId)
-    .on('load', onLoad)
-    .setView(centerCoordinates, ZOOM_LEVEL);
+const updateView = (coordinates) => {
+  map.setView(coordinates, ZOOM_LEVEL);
+};
 
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    },
-  ).addTo(map);
-
-  markerGroup = L.layerGroup().addTo(map);
-
+const resetMainMarker = (coordinates) => {
   L.marker(
-    centerCoordinates,
+    coordinates,
     {
       draggable: true,
       icon: mainPinIcon,
@@ -43,13 +34,33 @@ const initMap = function (containerId, centerCoordinates, onLoad) {
     .on('moveend', (evt) => {
       setAddressValue(evt.target.getLatLng());
     });
+};
 
+const initMap = function (containerId, centerCoordinates, onLoad) {
+  map = L.map(containerId);
+
+  if (onLoad !== undefined) {
+    map.on('load', onLoad);
+  }
+
+  updateView(centerCoordinates);
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  ).addTo(map);
+
+  markerGroup = L.layerGroup().addTo(map);
+
+  resetMainMarker(centerCoordinates);
   return map;
 };
 
 const renderOffers = (offers) => {
   markerGroup.clearLayers();
-  offers.forEach(offer => {
+  offers.forEach((offer) => {
     const marker = L.marker({
       lat: offer.location.lat,
       lng: offer.location.lng,
@@ -71,4 +82,4 @@ const renderOffers = (offers) => {
   });
 };
 
-export { initMap, renderOffers };
+export { initMap, renderOffers, updateView, resetMainMarker };

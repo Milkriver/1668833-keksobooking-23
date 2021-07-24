@@ -1,8 +1,8 @@
 import { renderSuccess, renderFail } from './services/render.js';
-import { initMap, renderOffers } from './services/map.js';
+import { initMap, renderOffers, resetMainMarker, updateView } from './services/map.js';
 import { sendData, getOffers } from './services/api.js';
-import { activateForm, deactivateForm, guestsValidateHandler, setAddressValue } from './services/form.js';
-import { initFilter, filterOffers } from './services/filters.js';
+import { activateForm, deactivateForm, guestsValidateHandler, resetForm, setAddressValue } from './services/form.js';
+import { initFilter, filterOffers, resetFilter } from './services/filters.js';
 import { PINS_NUMBER } from './variables.js';
 import { debounce } from './utils/debounce.js';
 
@@ -17,6 +17,7 @@ const mapCenter = {
 };
 
 const onMapLoad = () => activateForm(true);
+
 initMap(MAP_CONTAINER_ID, mapCenter, onMapLoad);
 
 const onSendSuccess = () => {
@@ -27,6 +28,10 @@ const onSendSuccess = () => {
   }, true);
   success.addEventListener('click', () => success.remove());
   document.querySelector('body').append(success);
+  resetFilter();
+  resetForm();
+  updateView(mapCenter);
+  resetMainMarker(mapCenter);
 };
 
 const onSendFail = () => {
@@ -39,12 +44,12 @@ const onSendFail = () => {
   document.querySelector('body').append(fail);
 };
 
-const formSubmitHandler = function (event) {
+const OnFormSubmit = function (event) {
   event.preventDefault();
   sendData(onSendSuccess, onSendFail, offerForm);
 };
 
-offerForm.addEventListener('submit', formSubmitHandler);
+offerForm.addEventListener('submit', OnFormSubmit);
 
 let offers = [];
 getOffers((data) => {

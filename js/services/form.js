@@ -23,7 +23,7 @@ const minPriceChangeHandler = () => {
 appartmentType.addEventListener('change', minPriceChangeHandler);
 
 const activateForm = () => {
-  minPriceChangeHandler()
+  minPriceChangeHandler();
   formElements.forEach((element) => {
     element.disabled = false;
   });
@@ -106,4 +106,9 @@ const setAddressValue = (coordinateObject) => {
     `Широта: ${coordinateObject.lat.toFixed(5)}, долгота: ${coordinateObject.lng.toFixed(5)}`;
 };
 
-export { activateForm, deactivateForm, guestsValidateHandler, setAddressValue };
+const resetForm = () => {
+  document.querySelector('.ad-form').reset();
+  document.querySelector('#capacity').selectedIndex = 2;
+};
+
+export { activateForm, deactivateForm, guestsValidateHandler, setAddressValue, resetForm };
