@@ -1,18 +1,18 @@
 import { renderSuccess, renderFail } from './services/render.js';
 import { initMap, renderOffers } from './services/map.js';
 import { sendData, getOffers } from './services/api.js';
-import { activateForm, deactivateForm, validateGuests, setAddressValue } from './services/form.js';
+import { activateForm, deactivateForm, guestsValidateHandler, setAddressValue } from './services/form.js';
 import { initFilter, filterOffers } from './services/filters.js';
 import { PINS_NUMBER } from './variables.js';
 import { debounce } from './utils/debounce.js';
 
 deactivateForm(true);
-validateGuests();
+guestsValidateHandler();
 const offerForm = document.querySelector('.ad-form');
 
 const MAP_CONTAINER_ID = 'map-canvas';
 const mapCenter = {
-  lat: 35.6895,
+  lat: 35.68950,
   lng: 139.69171,
 };
 
@@ -39,12 +39,12 @@ const onSendFail = () => {
   document.querySelector('body').append(fail);
 };
 
-const handleFormSubmit = function (event) {
+const formSubmitHandler = function (event) {
   event.preventDefault();
   sendData(onSendSuccess, onSendFail, offerForm);
 };
 
-offerForm.addEventListener('submit', handleFormSubmit);
+offerForm.addEventListener('submit', formSubmitHandler);
 
 let offers = [];
 getOffers((data) => {

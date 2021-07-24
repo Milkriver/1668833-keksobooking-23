@@ -31,8 +31,8 @@ const renderCard = function ({ offer, author }) {
     for (let index = 0; index < offer.photos.length; index++) {
       const photoOffer = createElement('img', 'popup__photo');
       photoOffer.src = offer.photos[index];
-      photoOffer.width = '80';
-      photoOffer.height = '80';
+      photoOffer.width = '45';
+      photoOffer.height = '40';
       photosElement.appendChild(photoOffer);
     }
   }

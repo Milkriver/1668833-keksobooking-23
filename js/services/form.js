@@ -15,12 +15,12 @@ const apartmentTypesMinPrice = {
   'palace': '10000',
 };
 
-const  changeMinPrice = () => {
+const  minPriceChangeHandler = () => {
   const minPrice = apartmentTypesMinPrice [appartmentType.value];
   appartmentPrice.min = minPrice;
   appartmentPrice.placeholder = minPrice;
 };
-appartmentType.addEventListener('change', changeMinPrice);
+appartmentType.addEventListener('change', minPriceChangeHandler);
 
 
 const activateForm = () => {
@@ -93,17 +93,17 @@ const validation = {
   },
 };
 
-const validateGuests = () => {
+const guestsValidateHandler = () => {
   const selectedOption = roomNumberSelect.options[roomNumberSelect.selectedIndex];
   disableCapacityOptions();
   validation[selectedOption.value]();
 };
 
-roomNumberSelect.addEventListener('change', validateGuests);
+roomNumberSelect.addEventListener('change', guestsValidateHandler);
 
 const setAddressValue = (coordinateObject) => {
   document.querySelector('#address').value =
-    `Широта: ${coordinateObject.lat.toFixed(3)}, долгота: ${coordinateObject.lng.toFixed(3)}`;
+    `Широта: ${coordinateObject.lat.toFixed(5)}, долгота: ${coordinateObject.lng.toFixed(5)}`;
 };
 
-export { activateForm, deactivateForm, validateGuests, setAddressValue };
+export { activateForm, deactivateForm, guestsValidateHandler, setAddressValue };
