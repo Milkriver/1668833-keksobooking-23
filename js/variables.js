@@ -1,6 +1,6 @@
 // URL для запросов
 export const OFFERS_URL = 'https://23.javascript.pages.academy/keksobooking/data';
-export const FORM_URL = 'https://23.javascript.pages.academy/keksobooking';
+export const FORM_URL = 'https://23.javascript.pages.academy/keksobooking1';
 
 //Настройки для фильтра
 export const apartmentTypes = {
@@ -11,5 +11,16 @@ export const apartmentTypes = {
   'hotel': 'Отель',
 };
 
+//Настройки сообщений
+export const DIALOG_MESSAGES = {
+  postOfferError: 'Ошибка размещения объявления',
+  getOfferError: 'Ошибка скачивания объявлений',
+};
+
 //Настройки карты
 export const PINS_NUMBER = 10;
+
+//Коды клавиш
+export const KEYBOARD_KEYS = {
+  Esc: 'Escape',
+};
