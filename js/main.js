@@ -1,57 +1,63 @@
-import { renderSuccess, renderFail } from './services/render.js';
-import { initMap, renderOffers } from './services/map.js';
+import { initMap, renderOffers, resetMainMarker, updateView } from './services/map.js';
 import { sendData, getOffers } from './services/api.js';
-import { activateForm, deactivateForm, validateGuests, setAddressValue } from './services/form.js';
-import { initFilter, filterOffers } from './services/filters.js';
-import { PINS_NUMBER } from './variables.js';
+import { activateForm, deactivateForm, guestsValidateHandler, resetForm, setAddressValue } from './services/form.js';
+import { initFilter, filterOffers, resetFilter } from './services/filters.js';
+import { DIALOG_MESSAGES, PINS_NUMBER } from './variables.js';
 import { debounce } from './utils/debounce.js';
+import { showErrorDialog, showSuccessDialog } from './services/dialog.js';
 
 deactivateForm(true);
-validateGuests();
+guestsValidateHandler();
 const offerForm = document.querySelector('.ad-form');
 
 const MAP_CONTAINER_ID = 'map-canvas';
 const mapCenter = {
-  lat: 35.6895,
+  lat: 35.68950,
   lng: 139.69171,
 };
 
 const onMapLoad = () => activateForm(true);
+
 initMap(MAP_CONTAINER_ID, mapCenter, onMapLoad);
 
 const onSendSuccess = () => {
-  const success = renderSuccess();
-  const evtListener = document.addEventListener('keydown', () => {
-    success.remove();
-    document.removeEventListener('keydown', evtListener);
-  }, true);
-  success.addEventListener('click', () => success.remove());
-  document.querySelector('body').append(success);
+  showSuccessDialog();
+  offerForm.reset();
 };
 
-const onSendFail = () => {
-  const fail = renderFail();
-  const evtListener = document.addEventListener('keydown', () => {
-    fail.remove();
-    document.removeEventListener('keydown', evtListener);
-  }, true);
-  fail.addEventListener('click', () => fail.remove());
-  document.querySelector('body').append(fail);
+const onSendFail = (message) => {
+  showErrorDialog(message);
 };
 
-const handleFormSubmit = function (event) {
+const onFormSubmit = (event) => {
   event.preventDefault();
-  sendData(onSendSuccess, onSendFail, offerForm);
+  sendData(
+    onSendSuccess, () => onSendFail(DIALOG_MESSAGES.postOfferError), offerForm);
 };
 
-offerForm.addEventListener('submit', handleFormSubmit);
+const onFormReset = () => {
+  setTimeout(() => {
+    resetForm();
+    resetFilter();
+    updateView(mapCenter);
+    resetMainMarker(mapCenter);
+  }, 0);
+};
+
+offerForm.addEventListener('reset', onFormReset);
+offerForm.addEventListener('submit', onFormSubmit);
 
 let offers = [];
-getOffers((data) => {
+
+const onGetOffersSuccess = (data) => {
   offers = data;
   const slicedOffers = data.slice(0, PINS_NUMBER);
   renderOffers(slicedOffers);
-});
+};
+
+const onGetOffersFail = () => onSendFail(DIALOG_MESSAGES.getOfferError);
+
+getOffers(onGetOffersSuccess, onGetOffersFail);
 
 const debouncedRenderOffers = debounce(() => {
   renderOffers(filterOffers(offers).slice(0, PINS_NUMBER));

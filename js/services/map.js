@@ -1,13 +1,14 @@
-import {renderCard} from './render.js';
-import {setAddressValue} from './form.js';
+import { renderCard } from './render.js';
+import { setAddressValue } from './form.js';
 
 const ZOOM_LEVEL = 14;
 let map = null;
 let markerGroup = null;
+let mainMarker = null;
 
 const pinIcon = L.icon({
   iconUrl: './img/pin.svg',
-  iconSize: [52, 52],
+  iconSize: [40, 40],
   iconAnchor: [26, 52],
 });
 
@@ -17,10 +18,38 @@ const mainPinIcon = L.icon({
   iconAnchor: [26, 52],
 });
 
-const initMap = function(containerId, centerCoordinates, onLoad){
-  map = L.map(containerId)
-    .on('load', onLoad)
-    .setView(centerCoordinates, ZOOM_LEVEL);
+const updateView = (coordinates) => {
+  map.setView(coordinates, ZOOM_LEVEL);
+};
+
+const resetMainMarker = (coordinates) => {
+  if (!mainMarker) {
+    mainMarker = L.marker(
+      coordinates,
+      {
+        draggable: true,
+        icon: mainPinIcon,
+      },
+    )
+      .addTo(map)
+      .bindPopup('Главная точка')
+      .on('moveend', (evt) => {
+        setAddressValue(evt.target.getLatLng());
+      });
+  } else {
+    mainMarker.setLatLng(coordinates);
+    setAddressValue(coordinates);
+  }
+};
+
+const initMap = function (containerId, centerCoordinates, onLoad) {
+  map = L.map(containerId);
+
+  if (onLoad !== undefined) {
+    map.on('load', onLoad);
+  }
+
+  updateView(centerCoordinates);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -31,32 +60,20 @@ const initMap = function(containerId, centerCoordinates, onLoad){
 
   markerGroup = L.layerGroup().addTo(map);
 
-  L.marker(
-    centerCoordinates,
-    {
-      draggable: true,
-      icon: mainPinIcon,
-    },
-  )
-    .addTo(map)
-    .bindPopup('Главная точка')
-    .on('moveend', (evt) => {
-      setAddressValue(evt.target.getLatLng());
-    });
-
+  resetMainMarker(centerCoordinates);
   return map;
 };
 
 const renderOffers = (offers) => {
   markerGroup.clearLayers();
-  for (let index = 0; index < offers.length; index++) {
-    const offer = offers[index];
+  offers.forEach((offer) => {
     const marker = L.marker({
       lat: offer.location.lat,
       lng: offer.location.lng,
     }, {
       icon: pinIcon,
     });
+
     marker
       .addTo(markerGroup)
       .bindPopup(
@@ -68,7 +85,7 @@ const renderOffers = (offers) => {
           keepInView: true,
         },
       );
-  }
+  });
 };
 
-export { initMap, renderOffers };
+export { initMap, renderOffers, updateView, resetMainMarker };
