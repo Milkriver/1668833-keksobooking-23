@@ -16,6 +16,15 @@ const mapCenter = {
   lng: 139.69171,
 };
 
+const onSendSuccess = () => {
+  showSuccessDialog();
+  offerForm.reset();
+};
+
+const onSendFail = (message) => {
+  showErrorDialog(message);
+};
+
 let offers = [];
 const onGetOffersFail = () => onSendFail(DIALOG_MESSAGES.getOfferError);
 const onGetOffersSuccess = (data) => {
@@ -30,15 +39,6 @@ const onMapLoad = () => {
 };
 
 initMap(MAP_CONTAINER_ID, mapCenter, onMapLoad);
-
-const onSendSuccess = () => {
-  showSuccessDialog();
-  offerForm.reset();
-};
-
-const onSendFail = (message) => {
-  showErrorDialog(message);
-};
 
 const onFormSubmit = (event) => {
   event.preventDefault();
