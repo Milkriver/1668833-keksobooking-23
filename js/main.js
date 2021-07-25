@@ -16,7 +16,18 @@ const mapCenter = {
   lng: 139.69171,
 };
 
-const onMapLoad = () => activateForm(true);
+let offers = [];
+const onGetOffersFail = () => onSendFail(DIALOG_MESSAGES.getOfferError);
+const onGetOffersSuccess = (data) => {
+  offers = data;
+  const slicedOffers = data.slice(0, PINS_NUMBER);
+  renderOffers(slicedOffers);
+};
+
+const onMapLoad = () => {
+  activateForm(true);
+  getOffers(onGetOffersSuccess, onGetOffersFail);
+};
 
 initMap(MAP_CONTAINER_ID, mapCenter, onMapLoad);
 
@@ -46,18 +57,6 @@ const onFormReset = () => {
 
 offerForm.addEventListener('reset', onFormReset);
 offerForm.addEventListener('submit', onFormSubmit);
-
-let offers = [];
-
-const onGetOffersSuccess = (data) => {
-  offers = data;
-  const slicedOffers = data.slice(0, PINS_NUMBER);
-  renderOffers(slicedOffers);
-};
-
-const onGetOffersFail = () => onSendFail(DIALOG_MESSAGES.getOfferError);
-
-getOffers(onGetOffersSuccess, onGetOffersFail);
 
 const debouncedRenderOffers = debounce(() => {
   renderOffers(filterOffers(offers).slice(0, PINS_NUMBER));
