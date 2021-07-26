@@ -1,6 +1,6 @@
 import { initMap, renderOffers, resetMainMarker, updateView } from './services/map.js';
 import { sendData, getOffers } from './services/api.js';
-import { activateForm, deactivateForm, guestsValidateHandler, resetForm, setAddressValue } from './services/form.js';
+import { activateForm, deactivateForm, onGuestsValidate as onGuestsValidate, resetForm, setAddressValue } from './services/form.js';
 import { initFilter, filterOffers, resetFilter } from './services/filters.js';
 import { DIALOG_MESSAGES, PINS_NUMBER } from './variables.js';
 import { debounce } from './utils/debounce.js';
@@ -8,7 +8,7 @@ import { showErrorDialog, showSuccessDialog } from './services/dialog.js';
 import { imageShowPreviewHandler } from './services/photo.js';
 
 deactivateForm(true);
-guestsValidateHandler();
+onGuestsValidate();
 const offerForm = document.querySelector('.ad-form');
 
 const MAP_CONTAINER_ID = 'map-canvas';

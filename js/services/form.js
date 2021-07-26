@@ -15,15 +15,15 @@ const apartmentTypesMinPrice = {
   'palace': '10000',
 };
 
-const minPriceChangeHandler = () => {
+const onMinPriceChange = () => {
   const minPrice = apartmentTypesMinPrice[appartmentType.value];
   appartmentPrice.min = minPrice;
   appartmentPrice.placeholder = minPrice;
 };
-appartmentType.addEventListener('change', minPriceChangeHandler);
+appartmentType.addEventListener('change', onMinPriceChange);
 
 const activateForm = () => {
-  minPriceChangeHandler();
+  onMinPriceChange();
   formElements.forEach((element) => {
     element.disabled = false;
   });
@@ -93,13 +93,13 @@ const validation = {
   },
 };
 
-const guestsValidateHandler = () => {
+const onGuestsValidate = () => {
   const selectedOption = roomNumberSelect.options[roomNumberSelect.selectedIndex];
   disableCapacityOptions();
   validation[selectedOption.value]();
 };
 
-roomNumberSelect.addEventListener('change', guestsValidateHandler);
+roomNumberSelect.addEventListener('change', onGuestsValidate);
 
 const setAddressValue = (coordinateObject) => {
   const address = document.querySelector('#address');
@@ -109,7 +109,18 @@ const setAddressValue = (coordinateObject) => {
 };
 
 const resetForm = () => {
-  guestsValidateHandler();
+  onGuestsValidate();
+  const avatarImage = document.querySelector('.ad-form-header__preview > img');
+  if (avatarImage !== undefined && avatarImage.src.startsWith('blob:')) {
+    avatarImage.src = 'img/muffin-grey.svg';
+    avatarImage.width = 40;
+    avatarImage.height = 44;
+  }
+
+  const photoImage = document.querySelector('.ad-form__photo > img');
+  if (photoImage !== undefined) {
+    photoImage.remove();
+  }
 };
 
-export { activateForm, deactivateForm, guestsValidateHandler, setAddressValue, resetForm };
+export { activateForm, deactivateForm, onGuestsValidate, setAddressValue, resetForm };
