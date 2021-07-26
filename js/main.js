@@ -5,6 +5,7 @@ import { initFilter, filterOffers, resetFilter } from './services/filters.js';
 import { DIALOG_MESSAGES, PINS_NUMBER } from './variables.js';
 import { debounce } from './utils/debounce.js';
 import { showErrorDialog, showSuccessDialog } from './services/dialog.js';
+import { imageShowPreviewHandler } from './services/photo.js';
 
 deactivateForm(true);
 guestsValidateHandler();
@@ -64,3 +65,6 @@ const debouncedRenderOffers = debounce(() => {
 initFilter(debouncedRenderOffers);
 
 setAddressValue(mapCenter);
+
+imageShowPreviewHandler('#avatar', '.ad-form-header__preview', 'Аватар пользователя', 70);
+imageShowPreviewHandler('#images', '.ad-form__photo', 'Фотография жилья', 70);
