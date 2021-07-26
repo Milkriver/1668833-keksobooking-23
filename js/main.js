@@ -63,7 +63,6 @@ const debouncedRenderOffers = debounce(() => {
   renderOffers(filterOffers(offers).slice(0, PINS_NUMBER));
 });
 initFilter(debouncedRenderOffers);
-
 setAddressValue(mapCenter);
 
 imageShowPreviewHandler('#avatar', '.ad-form-header__preview', 'Аватар пользователя', 70);
