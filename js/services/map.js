@@ -33,7 +33,7 @@ const resetMainMarker = (coordinates) => {
     )
       .addTo(map)
       .bindPopup('Главная точка')
-      .on('moveend', (evt) => {
+      .on('movestart', (evt) => {
         setAddressValue(evt.target.getLatLng());
       });
   } else {

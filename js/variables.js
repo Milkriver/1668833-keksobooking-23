@@ -1,6 +1,6 @@
 // URL для запросов
 export const OFFERS_URL = 'https://23.javascript.pages.academy/keksobooking/data';
-export const FORM_URL = 'https://23.javascript.pages.academy/keksobooking1';
+export const FORM_URL = 'https://23.javascript.pages.academy/keksobooking';
 
 //Настройки для фильтра
 export const apartmentTypes = {
